@@ -46,15 +46,17 @@
 #include e3 Includes\e3_Classes_Warrior.inc
 #include e3 Includes\e3_Classes_Wizard.inc
 
-#include e3 Includes\VetAAs.inc
+|- #include e3 Includes\VetAAs.inc
 
-|-------------------------------- Septaron Mods ------------------------------------------
+
+|-------------------------------- Septaron .inc filename changes ------------------------------------------
 #include e3 Includes\e3z_Background.inc
 #include e3 Includes\e3z_Basics.inc
 #include e3 Includes\e3z_CorpseSummoning.inc
 #include e3 Includes\e3z_Loot.inc
 #include e3 Includes\e3z_Utilities.inc
 #include e3 Includes\e3z_Casting.inc
+#include e3 Includes\e3z_VetAAs.inc
 
 |-------------------------------- End Septaron Mods ------------------------------------------
 
