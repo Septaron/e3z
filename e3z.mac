@@ -1,0 +1,235 @@
+|--------------------------------|
+|- e3.mac	v5.1				-|
+|- Written by Killians of PEQ.	-|
+|--------------------------------|
+
+
+|-------------------------------------------------------------------------------------------|
+|-------------------------------------------------------------------------------------------|
+|---------------------- Septaron General notes ------------------------------------------------------|
+|-
+|- Whenever I modify an original file, the name will be changed to e3z_xxxxx.xxx
+|-------------------------------------------------------------------------------------------|
+|-------------------------------------------------------------------------------------------|
+|-------------------------------------------------------------------------------------------|
+
+
+|-------------------------------------------------------------------------------------------|
+|-------------------------------------------------------------------------------------------|
+|------------------------ Important Notes --------------------------------------------------|
+|- e3_Classes_Necromancer.inc also uses /memspellset for a twitching
+|-	routine that I did not investigate or modify at this point. May
+|-	be an issue if you have a Necro at Twitching level
+|-
+|- Geron chat channel is 4, may be different if someone else add a channel. if so,
+|-	e3z_Casting.inc will need to be modified to reflect the change). search  for "/4"
+|-------------------------------------------------------------------------------------------|
+|-------------------------------------------------------------------------------------------|
+|-------------------------------------------------------------------------------------------|
+
+
+|-------------------------------------------------------------------------------------------|
+|-------------------------------------------------------------------------------------------|
+|---------------------- Septaron Mods todo list --------------------------------------------|
+|-------------------------------------------------------------------------------------------|
+|-
+|- develope routine to track and buy Reagents
+|-
+|- develope routine to summon items that require reagents, i.e. Berserker axes, 
+|-
+|- Need a flag for out of combat only heals, ranger patch up etc.
+|-
+|- develope routine to autobuy rations/Water flask based on total of 40
+|-
+|- need to drop /all as a heal option and add group only/raid only/Tank only/Important Only, 
+|-	MGB Only, need all to handle up to 3 different heals per group, order them my priority
+|- 
+|- need to add cures
+|- 
+|- need to add off tank
+|- 
+|- need to add stuns
+|- 
+|- need to add Makecamp status flag???? consistant usage
+|- 
+|- need to add /t, /tell to be intercepted and always sent from Main Toon as defined(Main-Toon) in General Settings.ini
+|-------------------------------------------------------------------------------------------|
+
+
+
+
+
+
+
+|-------------------------------------------------------------------------------------------|
+|- I have changed e3z.mac to use e3z_Setup.inc
+|-
+|- 2017-09-12 Septaron - modified General Settings.ini Loot section Corpse Seek Radius from
+|-	50 to 100
+|-------------------------------------------------------------------------------------------|
+|- 2017-09-12 Septaron - modified mq2automacro.ini to start e3z.mac instead of e3.mac
+|-	this would be the equivalent of the zoned.cfg file in e3 standard
+|-------------------------------------------------------------------------------------------|
+|- 2017-09-12 Septaron - modified e3z.mac to include e3z_setup.inc instead of e3_setup.exe
+|-------------------------------------------------------------------------------------------|
+|- 2017-09-12 Septaron - modified e3z_Setup.inc to check for mq2emunetadvpath instead of
+|-	mq2netadvpath
+|-------------------------------------------------------------------------------------------|
+|- 2017-09-12 Septaron - modified e3z_Background.inc to use /ssm instead of /memspellset
+|-------------------------------------------------------------------------------------------|
+|- 2017-09-12 Septaron - modified e3z_Basics /count to use fixed value 90 for out of range
+|-	toons. I really want a variable used here from General_Settings
+|- 2017-09-12 Septaron - modified e3z_Basics.inc to use /ssm instead of /memspellset
+|-------------------------------------------------------------------------------------------|
+|- 2017-09-12 Septaron - modified e3z_CorpseSummoning.inc to notify if < 30 items
+|-	after rez to have user verify toon
+|-------------------------------------------------------------------------------------------|
+|- 2017-09-12 Septaron - modified e3z_Loot.inc /echo loot destroyed message to a /bc colored
+|-	message
+|- 2017-09-12 Septaron - modified e3z_Loot.inc /echo Fully stocked message to a /bc colored
+|-	message
+|- 2017-09-12 Septaron - modified e3z_Loot.inc /echo is lore item message to a /bc colored
+|-	message
+|- 2017-09-12 Septaron - modified e3z_Loot.inc /echo don't have a large enough inventory
+|-	slot message to a /bc colored message
+|- 2017-09-12 Septaron - modified e3z_Loot.inc /echo item is a container message to a /bc
+|-	colored message
+|- 2017-09-12 Septaron - modified e3z_Loot.inc /echo Looting the item message to a /bc
+|-	colored message
+|- 2017-09-12 Septaron - modified e3z_Loot.inc added /bc colored msg of total items to loot
+|- 2017-09-12 Septaron - modified e3z_Loot.inc loot.ini lookup /echo in get_lootSettings sub
+|-	changed to a colored /bc. removed the /docommand syntax. commented out the /echo lookup command
+|- 2017-09-12 Septaron - modified e3z_Loot.inc if /loot failed to open loot window, skip to
+|-	:SKIP_LOOT routine and display a colored message and re-aquire follow and resume twist 
+|-	(some large corpses cause /loot to fail to open a loot window and toons lost /followon
+|-	and /twist, (specifically Skyfire wurms and Warslik giants)
+|-------------------------------------------------------------------------------------------|
+|- 2017-09-12 Septaron - modified e3z_Casting.inc to check for /MobHealth/<nn> and only cast
+|-	the spell is the mob's health is less than the user defined mob percentage
+|-------------------------------------------------------------------------------------------|
+|- 2017-09-14 Septaron - modified e3z.mac to bail out if e3 loads for my mules, etc.
+|-
+|- 2017-09-14 Septaron - modified e3z.mac to join chat channel Geron (defauting to 4 now) may
+|-	be a different channel # if someone else adds a channel
+|-
+|- 2017-09-14 Septaron - modified e3z_Casting.inc to read /Msg flag in spell params to show a msg
+|-------------------------------------------------------------------------------------------|
+
+
+ 
+
+
+
+
+
+
+
+
+
+#turbo 20
+
+
+|- 2017-09-12 Septaron - modified to include e3z_Setup
+#include e3 Includes\e3z_Setup.inc
+
+
+SUB Main(modeSelect)
+
+|- bail out of e3z for these mules
+/if (${Select[${Me.Name},Jami,Fami,Gami,Dami,Cami,Bami,Encmule,Enchighresearch,Magemule,Maghighresearch,Necmule,Nechighresearch,Wizmule,Wizhighresearch,Gemmule,Spellbanker,Arrowmule,Empmule,Chardoky,Eblis,Eblete,Elumuno,Bounce,Maru,Kave,Darkmule,Foody]}) /endmacro
+
+|- Define version of e3z (this will increment from Killians e3 ver 5.1.37 (r7)
+/declare macroVersion string outer 5.1.33 (r7)
+/declare i int local
+
+|- 2017-09-12 Septaron - modified to call e3z_Setup
+/call e3_Setup "${modeSelect}"
+
+|- setup a chat channel to display primarily heal spell messages to  track casting/change testing
+/join Geron
+
+:MainLoop
+/if (${Debug}) /echo |- MainLoop ==>
+
+	| If my class is not set, I must not be in game, end the macro.
+	/if (!${Bool[${Me.Class}]}) {
+		/endmacro
+	} else {
+		
+|	************************************************************************************	|
+|   ******************************* Background Functions *******************************	|
+|	************************************************************************************	|
+	
+		/if (${ActionTaken}) /varset ActionTaken FALSE
+		
+		/if (${currentZone} != ${Zone.ID}) /call check_Zone
+		/if (${Following} && !${Assisting}) /call check_Follow
+		/call check_Active
+		/call check_Combat
+		/call check_Idle
+		
+		| If I'm not holding an item, check Life Support and Instant Buffs.
+		/if (!${Bool[${Cursor}]}) {
+		
+			| Check if I'm casting
+			/if (!${Me.Casting.ID} || ${Me.Casting.ID} && ${Me.Class.ShortName.Equal[BRD]}) {
+		
+				| Check LifeSupport
+				/if (${lifeSupport.Size} && ${Me.PctHPs} < 100) /call check_lifeSupport
+
+				| Check Instant buffs
+				/if (${BuffCheck} && ${InstantBuffs.Size} && ${Me.FreeBuffSlots} > ${MaxBuffs}) /call buffInstants
+			}
+		}
+		
+		/call Background_Events
+		/doevents
+	
+		| If I'm not active, call mainFunctions
+		/if (!${activeTimer}) {
+		
+			| check for a pending item exchange
+			/if (${swapItemBack} && !${itemExchange_Timer}) /call completePendingExchange
+
+|	******************************************************************************	|
+|   ******************************* Main Functions *******************************	|
+|	******************************************************************************	|
+			/for i 1 to ${mainLoop_Array.Size}
+				/if (${Bool[${mainLoop_Array[${i}]}]}) /call ${mainLoop_Array[${i}]}
+			/if (!${ActionTaken}) /next i
+	
+|	**********************************************************************************	|
+|   ******************************* Tertiary Functions *******************************	|
+|	**********************************************************************************	|
+			
+			| MedBreak
+			/if (${medBreak}) /call check_MedBreak
+			
+			| Maintain macro timers
+			/if (${timerArray.Size}) /call check_macroTimers
+		}
+	}
+
+/if (${Debug}) {
+	/echo <== MainLoop -|
+	/delay 5
+}
+/goto :MainLoop	
+/RETURN
+
+
+
+|--------------------------------------------------------------------------------------------------------------------|
+|- Background events and functions that are checked even while casting or otherwise considered active.		   		-|
+|--------------------------------------------------------------------------------------------------------------------|
+|- This function is checked constantly, included events and functions should have minimal character interaction.	-|
+|--------------------------------------------------------------------------------------------------------------------|
+SUB Background_Events
+
+	/declare i int local
+
+	/for i 1 to ${macroSetups.Size}
+		/if (${Bool[${macroSetups[${i}]}]}) /call ${macroSetups[${i}]}_Background_Events
+	/next i
+
+/RETURN
