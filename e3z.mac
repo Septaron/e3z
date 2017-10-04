@@ -145,9 +145,6 @@ SUB Main(modeSelect)
 |- 2017-09-12 Septaron - modified to call e3z_Setup
 /call e3_Setup "${modeSelect}"
 
-|- setup a chat channel to display primarily heal spell messages to  track casting/change testing
-/join Geron
-
 :MainLoop
 /if (${Debug}) /echo |- MainLoop ==>
 
