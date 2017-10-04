@@ -13,6 +13,14 @@
 |----------------------------------------------------------------------------|
 SUB check_Zone
 /if (${Debug} || ${Debug_Background}) /echo |- check_Zone ==>
+	/if (!${currentZone}) {
+		/squelch /leave 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1
+		/squelch /join Geron
+		/squelch /join General
+		/squelch /join ${Me.Class}
+		/squelch /join Newplayers
+		/squelch /join ${Zone}
+	}
 
 	| Set current zone ID
 	/varset currentZone ${Zone.ID}
