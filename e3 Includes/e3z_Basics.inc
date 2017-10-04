@@ -301,6 +301,16 @@ SUB EVENT_MoveHere(line, ChatSender, eventParams)
 SUB EVENT_bark(line, ChatSender, msgTarget, barkMsg)
 /if (${Debug} || ${Debug_Basics}) /echo |- EVENT_Bark ==>
 
+	|-2017-10-04 Septaron - Add to resolve issue with toons not barking as requested
+	/bc [+y+]----- Turning Off Following, Meditation and Buffing -----[+x+]
+	/Medoff
+	/delay 10
+	/bc Toggle Buffs off
+	/delay 10
+	/bcaa //Netfollow off
+	/delay 10
+	|-2017-10-04 Septaron - End Add to resolve issue with toons not barking as requested
+
 	| -Verify the event
 	/call verifyEvent "${ChatSender}" "${line}"
 	/if (${Defined[ChatSender]}) /if (${Defined[ChatSender]}) /varset ChatSender ${Macro.Return.Arg[1,_]}
@@ -1782,7 +1792,8 @@ SUB EVENT_reportMana(line,ChatSender)
 	/if (${Debug} || ${Debug_Basics}) /echo <== EVENT_reportMana [${Me.PctMana}m] -|
 }
 /RETURN
-
+
+
 
 Sub basics_Setup
 /call INItoVar "${advSettings_Ini},Debug,Debug Basics (On/Off)" Debug_Basics bool outer
