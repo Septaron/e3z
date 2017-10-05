@@ -301,6 +301,12 @@ SUB EVENT_MoveHere(line, ChatSender, eventParams)
 SUB EVENT_bark(line, ChatSender, msgTarget, barkMsg)
 /if (${Debug} || ${Debug_Basics}) /echo |- EVENT_Bark ==>
 
+
+	|-2017-10-04 Septaron - Added
+	/call clear_Settings
+	|-2017-10-04 Septaron - End Add
+
+
 	| -Verify the event
 	/call verifyEvent "${ChatSender}" "${line}"
 	/if (${Defined[ChatSender]}) /if (${Defined[ChatSender]}) /varset ChatSender ${Macro.Return.Arg[1,_]}
@@ -1782,7 +1788,8 @@ SUB EVENT_reportMana(line,ChatSender)
 	/if (${Debug} || ${Debug_Basics}) /echo <== EVENT_reportMana [${Me.PctMana}m] -|
 }
 /RETURN
-
+
+
 
 Sub basics_Setup
 /call INItoVar "${advSettings_Ini},Debug,Debug Basics (On/Off)" Debug_Basics bool outer
