@@ -204,10 +204,10 @@ SUB Main(modeSelect)
 			/if (${medBreak}) /call check_MedBreak
 
 			|- 2017-Septaron add - if hydrid is in combat end medbreak else medbreak On hold
-			/if (${combatTimer} && (${Select[$Me.Class.ShortName],BRD,BST,PAL,RNG,SHD}) {
-				/echo Medbreak Off
-			}else{
+			/if (!${combatTimer} && ${Select[$Me.Class.ShortName],BRD,BST,PAL,RNG,SHD}) {
 				/echo Medbreak On
+			}else{
+				/echo Medbreak Off
 			{
 			|- 2017-Septaron end add - if hydrid is in combat end medbreak else medbreak On hold
 
