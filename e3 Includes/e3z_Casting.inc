@@ -156,7 +156,7 @@ SUB e3_Cast(int targetID, castParams)
 								}
 								
 								| Attempt to cast spell.
-								/if (${castParams.Find[/Msg]}) /1 ---- ${Time.Hour}:${Time.Minute}:${Time.Second} casting ${pendingSpell} on <${Spawn[id ${targetID}].Name}>								
+								/if (${castParams.Find[/Msg]}) /1 ---- ${Time.Hour}:${Time.Minute}:${Time.Second} ${pendingSpell} on <<${Spawn[id ${targetID}].CleanName}>>								
 								/call cast_Spell ${targetID} "${castParams}"
 							}	
 						}
