@@ -113,9 +113,6 @@
 |-	be a different channel # if someone else adds a channel
 |-
 |- 2017-09-14 Septaron - modified e3z_Casting.inc to read /Msg flag in spell params to show a msg
-|-------------------------------------------------------------------------------------------|
-|- 2017-Septaron add - e3z.mac Tertiary function, if hydrid is in combat end medbreak else medbreak On hold
-|-------------------------------------------------------------------------------------------|
 
  
 
@@ -201,15 +198,27 @@ SUB Main(modeSelect)
 |	**********************************************************************************	|
 			
 			| MedBreak
-			/if (${medBreak}) /call check_MedBreak
+			|- /if (${medBreak}) /call check_MedBreak
 
-			|- 2017-Septaron add - if hydrid is in combat end medbreak else medbreak On hold
-			/if (${Me.Combat} && ${Select[${Me.Class.ShortName}],BRD,BST,PAL,RNG,SHD}) {
+			|- 2017-10-08 Septaron add - if hydrid is in combat end medbreak else medbreak On hold
+
+			/if (${Select[${Me.Class.ShortName},BST,PAL,RNG,SHD]} && ${Me.Combat} && ${medBreak} && !${Select[${Me.Name},Mume,Tila]}) {
 				/echo Medbreak Off
-			}else{
+				/varset medBreak FALSE
+				/varset	medBreak_Hold FALSE
+				/delay .5
+			}
+			
+			/if (${Select[${Me.Class.ShortName},BST,PAL,RNG,SHD]} && !${Me.Combat} && !${medBreak} && !${Select[${Me.Name},Mume,Tila]}) {
 				/echo Medbreak On hold
-			{
-			|- 2017-Septaron end add - if hydrid is in combat end medbreak else medbreak On hold
+				/varset medBreak TRUE
+				/varset	medBreak_Hold TRUE
+				/delay .5
+			}
+
+			/if (${Select[${Me.Class.ShortName},CLR,DRU,SHM,ENC,MAG,NEC,WIZ,BRD,BST,PAL,RNG,SHD]} && ${medBreak}) /call check_MedBreak
+
+			|- 2017-10-08 Septaron end add - if hydrid is in combat end medbreak else medbreak On hold			
 
 			| Maintain macro timers
 			/if (${timerArray.Size}) /call check_macroTimers
