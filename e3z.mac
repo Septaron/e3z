@@ -6,7 +6,7 @@
 
 |-------------------------------------------------------------------------------------------|
 |-------------------------------------------------------------------------------------------|
-|---------------------- Septaron General notes ------------------------------------------------------|
+|---------------------- Septaron General notes ---------------------------------------------|
 |-
 |- Whenever I modify an original file, the name will be changed to e3z_xxxxx.xxx
 |-------------------------------------------------------------------------------------------|
@@ -52,7 +52,8 @@
 |- 
 |- need to add Makecamp status flag???? consistant usage
 |- 
-|- need to add /t, /tell to be intercepted and always sent from Main Toon as defined(Main-Toon) in General Settings.ini
+|- need to add /t, /tell to be intercepted and always sent from Main Toon as
+|-	defined(Main-Toon) in General Settings.ini
 |-------------------------------------------------------------------------------------------|
 
 
@@ -202,14 +203,14 @@ SUB Main(modeSelect)
 
 			|- 2017-10-08 Septaron add - if hydrid is in combat end medbreak else medbreak On hold
 
-			/if (${Select[${Me.Class.ShortName},BST,PAL,RNG,SHD]} && ${Me.Combat} && ${medBreak} && !${Select[${Me.Name},Mume,Tila]}) {
+			/if (${Select[${Me.Class.ShortName},BST,PAL,RNG,SHD]} && ${Me.Combat} && ${medBreak} && !${Select[${Me.Name},Mume,Tila]} && !${medBreakHold}) {
 				/echo Medbreak Off
 				/varset medBreak FALSE
 				/varset	medBreak_Hold FALSE
 				/delay .5
 			}
 			
-			/if (${Select[${Me.Class.ShortName},BST,PAL,RNG,SHD]} && !${Me.Combat} && !${medBreak} && !${Select[${Me.Name},Mume,Tila]}) {
+			/if (${Select[${Me.Class.ShortName},BST,PAL,RNG,SHD]} && !${Me.Combat} && !${medBreak} && !${Select[${Me.Name},Mume,Tila]} && ${medBreakHold}) {
 				/echo Medbreak On hold
 				/varset medBreak TRUE
 				/varset	medBreak_Hold TRUE
