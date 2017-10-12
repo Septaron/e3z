@@ -110,6 +110,8 @@ SUB loot_It(int corpseID)
 				| If my inventory is full, and I haven't alerted the user.
 				/if (!${Me.FreeInventory}) {
 					
+					/varset Auto_Loot FALSE
+					
 					| If I haven't alerted the user
 					/if (!${fullInventory_Alert}) {
 						
