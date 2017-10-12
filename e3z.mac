@@ -114,11 +114,10 @@
 |-	be a different channel # if someone else adds a channel
 |-
 |- 2017-09-14 Septaron - modified e3z_Casting.inc to read /Msg flag in spell params to show a msg
-
+|-
+|- 2017-10-12 Septaron - modified e3z.mac to set target group buff on a msg
+|-------------------------------------------------------------------------------------------|
  
-
-
-
 
 
 
@@ -136,6 +135,9 @@ SUB Main(modeSelect)
 
 |- bail out of e3z for these mules
 /if (${Select[${Me.Name},Jami,Fami,Gami,Dami,Cami,Bami,Encmule,Enchighresearch,Magemule,Maghighresearch,Necmule,Nechighresearch,Wizmule,Wizhighresearch,Gemmule,Spellbanker,Arrowmule,Empmule,Chardoky,Eblis,Eblete,Elumuno,Bounce,Maru,Kave,Darkmule,Foody]}) /endmacro
+
+/tgb on
+
 
 |- Define version of e3z (this will increment from Killians e3 ver 5.1.37 (r7)
 /declare macroVersion string outer 5.1.33 (r7)
