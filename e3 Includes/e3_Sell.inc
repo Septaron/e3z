@@ -69,7 +69,11 @@ SUB EVENT_syncInventory
 #EVENT sellItems "<#*#> Auto Sell"
 SUB EVENT_sellItems
 /if (${Debug} || ${Debug_Sell}) /echo |- EVENT_sellItems ==>
-	
+
+	|- 2017-10-05 Septaron - Added
+	/call clear_settings
+	|- 2017-10-05 Septaron - End Added
+
 	| Record starting location.
 	/declare startingLoc string local ${Me.Loc.Replace[ ,]}
 		

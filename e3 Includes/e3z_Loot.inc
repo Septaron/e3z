@@ -70,6 +70,13 @@ SUB loot_It(int corpseID)
 
 	/declare i int local
 	
+	|- 2017-10-12 Septaron - add check to set autoloot off if inventory ful;l
+	/if (!${Me.FreeInventory}) {
+		/varset Auto_Loot FALSE
+		/return
+	}
+	|- 2017-10-12 Septaron End - add check to set autoloot off if inventory ful;l
+	
 	| Check to see if corpseID belongs to an NPC (NPC corpses have _'s in the name).
 	/if (${Spawn[id ${corpseID}].LineOfSight} && ${corpseName.Find[_]}) {
 	
@@ -95,6 +102,8 @@ SUB loot_It(int corpseID)
 		
 			| Count items on the corpse, loop until no new items are found.
 			:autoxplootlag
+
+			
 			/if (${lootTotal}!=${Corpse.Items}) {
 				/varset lootTotal ${Corpse.Items}
 				/delay 5
@@ -110,8 +119,6 @@ SUB loot_It(int corpseID)
 				| If my inventory is full, and I haven't alerted the user.
 				/if (!${Me.FreeInventory}) {
 					
-					/varset Auto_Loot FALSE
-					/return
 					| If I haven't alerted the user
 					/if (!${fullInventory_Alert}) {
 						

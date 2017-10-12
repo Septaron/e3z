@@ -5,23 +5,25 @@
 |- This is e3's 'toolbox' which contains scripts used throughout e3's various functions.	-|
 |--------------------------------------------------------------------------------------------|
 
-
-
+ 
 |--------------------------------------------------------------------------------------------|
 |- Clear setting that I use most a lot of the time that interfer with the command used
 |--------------------------------------------------------------------------------------------|
 |--------------------------------------------------------------------------------------------|
 |-2017-10-04 Septaron - Added to resolve issue with toons not responding to /bark
-|-	will also use this for other commands as needed
+|-	can also use this for other commands as needed
 |--------------------------------------------------------------------------------------------|
-SUB clear_settings
-/bc [+y+]----- Turning Off Following, Meditation and Buffing -----[+x+]
-/Medoff
-/delay 10
-/bc Toggle Buffs off
-/delay 10
+SUB clear_Settings
+
+/if (${Group.Leader.Name.Equal[${Me.CleanName}]}) /bc MedBreak Off
+/delay 20
+/if (${Group.Leader.Name.Equal[${Me.CleanName}]}) /bc Toggle Buffs Off
+/delay 30
 /bcaa //Netfollow off
-/delay 10
+/delay 20
+/bcaa //stand
+/delay 20
+/return
 
 |--------------------------------------------------------------------------------------------------------|
 |- Validates Ini entries from supplied Ini keys, and creates variables of the specified type and scope.	-|

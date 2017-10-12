@@ -6,7 +6,6 @@
 |------------------------------------------------------------------------|
 
 
-
 |------------------------------
 |- Engages, and sets variables related to Follow.
 |------------------------------
@@ -301,11 +300,9 @@ SUB EVENT_MoveHere(line, ChatSender, eventParams)
 SUB EVENT_bark(line, ChatSender, msgTarget, barkMsg)
 /if (${Debug} || ${Debug_Basics}) /echo |- EVENT_Bark ==>
 
-
 	|-2017-10-04 Septaron - Added
 	/call clear_Settings
 	|-2017-10-04 Septaron - End Add
-
 
 	| -Verify the event
 	/call verifyEvent "${ChatSender}" "${line}"
@@ -1092,19 +1089,20 @@ SUB EVENT_medOn(line, ChatSender)
 		| Check that I'm a caster, and not a bard
 		/if (${Me.Class.CanCast} && ${Me.Class.ShortName.NotEqual[BRD]}) {
 	
-			| Set medbreak variables
-			/varset medBreak TRUE
-			/if (${line.Find[ Hold]}) {
-				/varset medBreak_Hold TRUE
-			} else {
-				/varset medBreak_Hold FALSE
-			}
 			
 			| Check range
 			/if (${Spawn[pc ${ChatSender}].Distance} < ${MaxResponseDist}) {
 				/docommand ${ChatToggle} Meditating...
 			} else {
 				/docommand ${ChatToggle} I am too far away from you to meditate, right now.  I'll start meditating when you're in range.
+			}
+			
+			| Set medbreak variables
+			/varset medBreak TRUE
+			/if (${line.Find[ Hold]}) {
+				/varset medBreak_Hold TRUE
+			} else {
+				/varset medBreak_Hold FALSE
 			}
 		}
 	}
@@ -1788,8 +1786,7 @@ SUB EVENT_reportMana(line,ChatSender)
 	/if (${Debug} || ${Debug_Basics}) /echo <== EVENT_reportMana [${Me.PctMana}m] -|
 }
 /RETURN
-
-
+
 
 Sub basics_Setup
 /call INItoVar "${advSettings_Ini},Debug,Debug Basics (On/Off)" Debug_Basics bool outer
