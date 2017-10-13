@@ -117,16 +117,16 @@
 |-
 |- 2017-10-12 Septaron - modified e3z.mac to set target group buff on a msg
 |-------------------------------------------------------------------------------------------|
-
 |- 2017-10-12 Septaron - modified e3z_Loot.inc If my inventory is full, set
 |-	autoloot off
 |-------------------------------------------------------------------------------------------|
+|- 2017-10-13 Septaron - modified e3z_Basics.inc Evac sub to cancel evac if distance to evac
+|-	caller is > 100 and not in raid. Warnings are sent to group only
+|-------------------------------------------------------------------------------------------|
 
 
-| If my inventory is full, and I haven't alerted the user. 
-				/if (!${Me.FreeInventory}) {
-					
-					/varset Auto_Loot FALSE 
+
+
 
 
 
