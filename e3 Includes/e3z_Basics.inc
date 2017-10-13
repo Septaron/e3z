@@ -1433,6 +1433,16 @@ SUB EVENT_Evacuate(line, ChatSender)
 	|    |-----------Valid User----------|    |--------Included Bot-----------|
 	/if (${Bool[${Macro.Return.Arg[2,_]}]} && ${Bool[${Macro.Return.Arg[3,_]}]}) {
 
+		/if (${Spawn[${ChatSender}].Distance} > 100 && !${Raid.Members}) {
+			/g <<< EVAC CALLER IS OUT OF RANGE,		CANCELING EVAC >>>
+			/g <<< EVAC CALLER IS OUT OF RANGE,		CANCELING EVAC >>>
+			/g <<< EVAC CALLER IS OUT OF RANGE,		CANCELING EVAC >>>
+			/g <<< MOVE CLOSER OR CALL EVAC FROM A CLOSER TOON, CANCELING EVAC >>>
+	
+			/return
+		}
+
+
 		| -Attempt to evac.
 		/if (${Me.AltAbilityReady[Exodus]}) {
 			/docommand ${ChatToggle} Evacuating!
